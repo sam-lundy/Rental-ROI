@@ -3,10 +3,11 @@ from rental_art import logo
 class CashOnCash:
     def __init__(self):
         self.income_types = {}
-        self.income_total = 0
+        self.income_total = 0.0
         self.expense_types = {}
-        self.expense_total = 0
-
+        self.expense_total = 0.0
+        self.cashflow_total = 0.0
+        self.cashoncash_roi = 0.0
 
 
 
@@ -18,10 +19,10 @@ class CashOnCash:
         while True:
             try:
                 #debug
-                print(self.income_types)
-                print(self.income_total)
+                # print(self.income_types)
+                # print(self.income_total)
                 #Rental income
-                rent_income = int(input("Enter the rental income amount or enter '000' to stop: "))
+                rent_income = float(input("\nEnter the rental income amount or enter '000' to stop: "))
                 if rent_income >= 1 and rent_income < 999999999:
                     self.income_types.update({"Rent": rent_income})
                     self.income_total += rent_income
@@ -32,29 +33,31 @@ class CashOnCash:
                     continue
 
                 #Additional Income
-                other_income = int(input("\nEnter any other additional income. (Laundry, Storage, etc): "))
+                other_income = float(input("\nEnter any other additional income. (Laundry, Storage, etc): "))
                 if other_income > 1 and other_income < 999999999:
                     self.income_types.update({"Other": other_income})
                     self.income_total += other_income
                 else:
                     print("\nPlease enter a valid additional income amount.\n")
 
-                done_adding_income = input("Add more income? (type 'y' or 'n'): ")
-                if done_adding_income == 'n':
+                add_more_income = input("\nAdd more income? (type 'y' or 'n'): ")
+                if add_more_income == 'n':
+                    income_rounded = round(self.income_total, 2)
+                    print(f"\nIncome total: {income_rounded}\n")
                     break
                 else:
                     continue
 
             except ValueError:
-                print("Enter a number!")
+                print("\nEnter a number!\n")
 
 
 #step 2: Expenses method
 
     def expenses(self):
-        #debug
-        print(self.expense_types)
-        print(self.expense_total)
+        # debug
+        # print(self.expense_types)
+        # print(self.expense_total)
 
         while True:
             try:
@@ -64,94 +67,94 @@ class CashOnCash:
                     break
 
                 elif begin_expenses == 'y':
-                    tax_exp = int(input("Enter property tax: "))
+                    tax_exp = float(input("Enter property tax: "))
                     if tax_exp >= 0 and tax_exp < 99999:
                         self.expense_types.update({"Taxes": tax_exp})
                         self.expense_total += tax_exp
                     else:
                         print("\nPlease enter a valid tax amount.\n")
                     
-                    ins_exp = int(input("Enter insurance cost: "))
+                    ins_exp = float(input("Enter insurance cost: "))
                     if ins_exp >= 0 and ins_exp < 99999:
                         self.expense_types.update({"Insurance": ins_exp})
                         self.expense_total += ins_exp
                     else:
                         print("\nPlease enter a valid insurance amount.\n")
                     
-                    util_exp = int(input("Enter Utility cost: "))
+                    util_exp = float(input("Enter Utility cost: "))
                     if util_exp >= 0 and util_exp < 9999:
                         self.expense_types.update({"Utilities": util_exp})
                         self.expense_total += util_exp
                     else:
                         print("\nPlease enter a valid utility amount.\n")
 
-                    hoa_exp = int(input("Enter HOA fees: "))
+                    hoa_exp = float(input("Enter HOA fees: "))
                     if hoa_exp >= 0 and hoa_exp < 9999:
                         self.expense_types.update({"HOA": hoa_exp})
                         self.expense_total += hoa_exp
                     else:
                         print("\nPlease enter a valid HOA amount.\n")
                     
-                    grounds_exp = int(input("Enter groundskeeping cost: "))
+                    grounds_exp = float(input("Enter groundskeeping cost: "))
                     if grounds_exp >= 0 and grounds_exp < 9999:
                         self.expense_types.update({"Groundskeeping": grounds_exp})
                         self.expense_total += grounds_exp
                     else:
                         print("\nPlease enter a valid groundskeeping amount.\n")
                     
-                    vac_exp = int(input("Enter vacancy expense (savings for vacant periods): "))
+                    vac_exp = float(input("Enter vacancy expense (savings for vacant periods): "))
                     if vac_exp >= 0 and vac_exp < 999999:
                         self.expense_types.update({"Vacancy": vac_exp})
                         self.expense_total += vac_exp
                     else:
                         print("\nPlease enter a valid vacancy amount.\n")
                         
-                    repair_exp = int(input("Enter repair expense: "))
+                    repair_exp = float(input("Enter repair expense: "))
                     if repair_exp >= 0 and repair_exp < 9999999:
                         self.expense_types.update({"Repairs": repair_exp})
                         self.expense_total += repair_exp
                     else:
                         print("\nPlease enter a valid repairs amount.\n")
                         
-                    cap_exp = int(input("Enter Capital Expenditures amount: "))
+                    cap_exp = float(input("Enter Capital Expenditures amount: "))
                     if cap_exp >= 0 and cap_exp < 9999999:
                         self.expense_types.update({"CapEx": cap_exp})
                         self.expense_total += cap_exp
                     else:
                         print("\nPlease enter a valid CapEx amount.\n")
 
-                    mgmt_exp = int(input("Enter property management amount: "))
+                    mgmt_exp = float(input("Enter property management amount: "))
                     if mgmt_exp >= 0 and mgmt_exp < 999999:
                         self.expense_types.update({"Prop Mgmt": mgmt_exp})
                         self.expense_total += mgmt_exp
                     else:
                         print("\nPlease enter a valid property management amount.\n")
 
-                    mort_exp = int(input("Enter your mortgage: "))
+                    mort_exp = float(input("Enter your mortgage: "))
                     if mort_exp >= 0 and mort_exp < 999999999:
                         self.expense_types.update({"Mortgage": mort_exp})
                         self.expense_total += mort_exp
                     else:
                         print("\nPlease enter a valid utility amount.\n")
 
-                    print(f"Expenses total: {self.expense_total}")
+                    expense_rounded = round(self.expense_total, 2)
+                    print(f"\nExpenses total: {expense_rounded}\n")
 
                 else:
-                    print("Invalid amount entered.")
+                    print("\nInvalid amount entered.\n")
                     continue
 
             except ValueError:
-                print("Please enter a valid value!")
+                print("\nPlease enter a valid value!\n")
             
 
 #step 3: Cash flow method
 
     def cash_flow(self):
-        pass
+        cash_flow_result = round((self.income_total - self.expense_total), 2)
+        self.cashflow_total += cash_flow_result
 
-
-
-
+        print(f"\nYour monthly cash flow is {cash_flow_result}")
 
 
 
@@ -170,10 +173,10 @@ class CashOnCash:
         print("Welcome to the Rental Property Return on Investment (RoI) Calculator.")
         print("This calculator calculates RoI based on Income, Expenses, and Cash Flow.")
         while True:
-            menu_selection = input("""Please choose from the following menus: \n
+            menu_selection = input("""\nPlease choose from the following menus: \n
                 1. Income
                 2. Expenses
-                3. Cash Flow
+                3. View Cash Flow
                 4. RoI Calculation (Cash on Cash)
                 5. Print Values
                 6. Reset Values
@@ -194,8 +197,9 @@ class CashOnCash:
                     elif menu_selection == 4:
                         self.roi_calc()
                     elif menu_selection == 5:
-                        print(f"\nIncome Total: {self.income_total}")
-                        print(f"Expenses Total: {self.expense_total}\n")
+                        print(f"\nIncome Total: {self.income_total}\n")
+                        print(f"\nExpenses Total: {self.expense_total}\n")
+                        print(f"\nMontly Cash Flow: {self.cashflow_total}")
                     elif menu_selection == 6:
                         print("Reset values")
                     elif menu_selection == 7:
