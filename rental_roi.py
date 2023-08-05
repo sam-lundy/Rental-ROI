@@ -54,99 +54,37 @@ class CashOnCash:
         expenses() provides a lengthy conditional check for users to 
         input their monthly expenses in several different categories.
         '''
-        while True:
-            try:
-                begin_expenses = input("Begin expense calculation? 'y' or 'n': ").lower()
+        expense_types = ["Tax", "Insurance", "Utilities", "HOA", "Groundskeeping", "Vacancy", 
+                         "Repairs", "Capital Expenditure", "Property Management", "Morgage"]
+        should_quit = False
+        print("Enter 'q' at any time to quit adding income.")
 
-                if begin_expenses == 'n':
-                    break
+        for expense_type in expense_types:
+            if should_quit:
+                break
 
-                elif begin_expenses == 'y':
-                    print("Please enter '000' at any time to cancel adding expenses.\n")
-                    tax_exp = float(input("Enter property tax: "))
-                    if tax_exp >= 0 and tax_exp < 99999:
-                        self.expense_types.update({"Taxes": tax_exp})
-                        self.expense_total += tax_exp
-                    elif tax_exp == 000:
+            while True:
+                try:
+                    get_expense = input(f"\nEnter {expense_type} amount: ")
+
+                    if get_expense.lower() == 'q':
+                        should_quit = True
                         break
-                    else:
-                        print("\nPlease enter a valid tax amount.\n")
-                    
-                    ins_exp = float(input("Enter insurance cost: "))
-                    if ins_exp >= 0 and ins_exp < 99999:
-                        self.expense_types.update({"Insurance": ins_exp})
-                        self.expense_total += ins_exp
-                    elif ins_exp == 000:
+
+                    get_expense = float(get_expense)
+
+                    if 0 <= get_expense < 999999:
+                        self.expense_type_store.update({"Taxes": get_expense})
+                        self.expense_total += get_expense
                         break
-                    else:
-                        print("\nPlease enter a valid insurance amount.\n")
-                    
-                    util_exp = float(input("Enter Utility cost: "))
-                    if util_exp >= 0 and util_exp < 9999:
-                        self.expense_types.update({"Utilities": util_exp})
-                        self.expense_total += util_exp
-                    else:
-                        print("\nPlease enter a valid utility amount.\n")
 
-                    hoa_exp = float(input("Enter HOA fees: "))
-                    if hoa_exp >= 0 and hoa_exp < 9999:
-                        self.expense_types.update({"HOA": hoa_exp})
-                        self.expense_total += hoa_exp
                     else:
-                        print("\nPlease enter a valid HOA amount.\n")
-                    
-                    grounds_exp = float(input("Enter groundskeeping cost: "))
-                    if grounds_exp >= 0 and grounds_exp < 9999:
-                        self.expense_types.update({"Groundskeeping": grounds_exp})
-                        self.expense_total += grounds_exp
-                    else:
-                        print("\nPlease enter a valid groundskeeping amount.\n")
-                    
-                    vac_exp = float(input("Enter vacancy expense (savings for vacant periods): "))
-                    if vac_exp >= 0 and vac_exp < 999999:
-                        self.expense_types.update({"Vacancy": vac_exp})
-                        self.expense_total += vac_exp
-                    else:
-                        print("\nPlease enter a valid vacancy amount.\n")
-                        
-                    repair_exp = float(input("Enter repair expense: "))
-                    if repair_exp >= 0 and repair_exp < 9999999:
-                        self.expense_types.update({"Repairs": repair_exp})
-                        self.expense_total += repair_exp
-                    else:
-                        print("\nPlease enter a valid repairs amount.\n")
-                        
-                    cap_exp = float(input("Enter Capital Expenditures amount: "))
-                    if cap_exp >= 0 and cap_exp < 9999999:
-                        self.expense_types.update({"CapEx": cap_exp})
-                        self.expense_total += cap_exp
-                    else:
-                        print("\nPlease enter a valid CapEx amount.\n")
+                        print(f"\nPlease enter a valid {expense_type} income amount.\n")
+                        continue
 
-                    mgmt_exp = float(input("Enter property management amount: "))
-                    if mgmt_exp >= 0 and mgmt_exp < 999999:
-                        self.expense_types.update({"Prop Mgmt": mgmt_exp})
-                        self.expense_total += mgmt_exp
-                    else:
-                        print("\nPlease enter a valid property management amount.\n")
-
-                    mort_exp = float(input("Enter your mortgage: "))
-                    if mort_exp >= 0 and mort_exp < 999999999:
-                        self.expense_types.update({"Mortgage": mort_exp})
-                        self.expense_total += mort_exp
-                    else:
-                        print("\nPlease enter a valid utility amount.\n")
-
-                    expense_rounded = round(self.expense_total, 2)
-                    print(f"\nExpenses total: ${expense_rounded}\n")
-
-                else:
-                    print("\nInvalid amount entered.\n")
+                except ValueError:
+                    print("\nPlease enter a valid value!\n")
                     continue
-
-            except ValueError:
-                print("\nPlease enter a valid value!\n")
-            
 
 
     def roi_calc(self):
@@ -180,6 +118,7 @@ class CashOnCash:
             except ValueError:
                 print("\nEnter a valid amount jackass!\n")
                 continue
+
 
 
     def reset_values(self):
