@@ -1,4 +1,5 @@
 from rental_art import logo
+import os
 
 class CashOnCash:
     def __init__(self):
@@ -183,6 +184,8 @@ class CashOnCash:
                     self.annual_roi_percent = 0.0
 
                     print("Values reset...")
+                    os.system("clear")
+                    os.system("cls")
                     break
                 else:
                     print("Please enter a valid selection.")
