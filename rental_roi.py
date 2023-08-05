@@ -10,18 +10,13 @@ class CashOnCash:
         self.investment_total = 0.0
 
 
-
     def income(self):
         '''
         income() is a method that asks about the rental and 
         other income received from the property.
         '''
-
         while True:
             try:
-                #debug
-                # print(self.income_types)
-                # print(self.income_total)
                 #Rental income
                 rent_income = float(input("\nEnter the rental income amount or enter '000' to stop: "))
                 if rent_income >= 1 and rent_income < 999999999:
@@ -58,7 +53,6 @@ class CashOnCash:
         expenses() provides a lengthy conditional check for users to 
         input their monthly expenses in several different categories.
         '''
-
         while True:
             try:
                 begin_expenses = input("Begin expense calculation? 'y' or 'n': ").lower()
@@ -161,7 +155,6 @@ class CashOnCash:
 
 
 
-
     def roi_calc(self):
         '''
         roi_calc() provides an input/calculation structure to determine the 
@@ -200,7 +193,6 @@ class CashOnCash:
         '''
         reset_values provides functionality in order to reset the class attribute values to zero.
         '''
-
         while True:
             try:
                 user_check = input("Are you sure you want to delete all your saved values? type 'y' or 'n': ").lower()
@@ -247,11 +239,9 @@ class CashOnCash:
                 7. Quit \n""")
             
             try:
-
                 menu_selection = int(menu_selection)
 
                 if 1 <= menu_selection <= 7:
-
                     if menu_selection == 1:
                         self.income()
                     elif menu_selection == 2:
@@ -275,7 +265,6 @@ class CashOnCash:
 
             except ValueError:
                 print("\nInvalid input. Please enter a valid number jackass.\n")
-
 
 
 
