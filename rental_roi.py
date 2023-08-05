@@ -19,7 +19,7 @@ class CashOnCash:
             try:
                 #Rental income
                 rent_income = float(input("\nEnter the rental income amount or enter '000' to stop: "))
-                if rent_income >= 1 and rent_income < 999999999:
+                if rent_income >= 0 and rent_income < 999999999:
                     self.income_types.update({"Rent": rent_income})
                     self.income_total += rent_income
                 elif rent_income == 000:
@@ -29,10 +29,12 @@ class CashOnCash:
                     continue
 
                 #Additional Income
-                other_income = float(input("\nEnter any other additional income. (Laundry, Storage, etc): "))
-                if other_income > 1 and other_income < 999999999:
+                other_income = float(input("\nEnter any other additional income. (Laundry, Storage, etc) or enter '000' to stop: "))
+                if other_income >= 0 and other_income < 999999999:
                     self.income_types.update({"Other": other_income})
                     self.income_total += other_income
+                elif other_income == 000:
+                    break
                 else:
                     print("\nPlease enter a valid additional income amount.\n")
 
@@ -143,18 +145,6 @@ class CashOnCash:
             
 
 
-    def cash_flow(self):
-        '''
-        cash_flow() is a simple method to calculate the monthly cash flow of the 
-        rental.
-        '''
-        cash_flow_result = round((self.income_total - self.expense_total), 2)
-        self.cashflow_total += cash_flow_result
-
-        print(f"\nYour monthly cash flow is ${cash_flow_result}")
-
-
-
     def roi_calc(self):
         '''
         roi_calc() provides an input/calculation structure to determine the 
@@ -240,24 +230,34 @@ class CashOnCash:
                 menu_selection = int(menu_selection)
 
                 if 1 <= menu_selection <= 7:
+
                     if menu_selection == 1:
                         self.income()
+
                     elif menu_selection == 2:
                         self.expenses()
+
                     elif menu_selection == 3:
-                        self.cash_flow()
+                        cash_flow_result = round((self.income_total - self.expense_total), 2)
+                        self.cashflow_total += cash_flow_result
+                        print(f"\nYour monthly cash flow is ${cash_flow_result}")
+
                     elif menu_selection == 4:
                         self.roi_calc()
+
                     elif menu_selection == 5:
                         print(f"\nIncome Total: ${self.income_total}")
                         print(f"Expenses Total: ${self.expense_total}")
                         print(f"Montly Cash Flow: ${self.cashflow_total}")
                         print(f"Investment Total: ${self.investment_total}\n")
+
                     elif menu_selection == 6:
                         self.reset_values()
+
                     elif menu_selection == 7:
                         print("\nThank you for using the Rental Income Calculator.")
                         break
+
                 else:
                     print("\nInvalid choice. Please enter a number from 1 to 7.\n")
 
