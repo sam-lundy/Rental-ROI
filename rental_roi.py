@@ -7,8 +7,7 @@ class CashOnCash:
         self.expense_types = {}
         self.expense_total = 0.0
         self.cashflow_total = 0.0
-        self.cashoncash_roi = 0.0
-
+        self.investment_total = 0.0
 
 
 
@@ -43,7 +42,7 @@ class CashOnCash:
                 add_more_income = input("\nAdd more income? (type 'y' or 'n'): ").lower()
                 if add_more_income == 'n':
                     income_rounded = round(self.income_total, 2)
-                    print(f"\nIncome total: {income_rounded}\n")
+                    print(f"\nIncome total: ${income_rounded}\n")
                     break
                 else:
                     continue
@@ -138,7 +137,7 @@ class CashOnCash:
                         print("\nPlease enter a valid utility amount.\n")
 
                     expense_rounded = round(self.expense_total, 2)
-                    print(f"\nExpenses total: {expense_rounded}\n")
+                    print(f"\nExpenses total: ${expense_rounded}\n")
 
                 else:
                     print("\nInvalid amount entered.\n")
@@ -154,16 +153,39 @@ class CashOnCash:
         cash_flow_result = round((self.income_total - self.expense_total), 2)
         self.cashflow_total += cash_flow_result
 
-        print(f"\nYour monthly cash flow is {cash_flow_result}")
+        print(f"\nYour monthly cash flow is ${cash_flow_result}")
 
 
 
 #step 4: Cash on Cash ROI
 
     def roi_calc(self):
-        pass
+        while True:
+            try:
+                down_pmt = float(input("Enter your down payment: "))
+                if down_pmt >= 0 and down_pmt < 9999999999:
+                    self.investment_total += down_pmt
+                closing_cost = float(input("Enter your closing costs: "))
+                if closing_cost >= 0 and closing_cost < 999999:
+                    self.investment_total += closing_cost
+                rehab_budget = float(input("Enter your remodel budget: "))
+                if rehab_budget >= 0 and rehab_budget < 99999999:
+                    self.investment_total += rehab_budget
+                misc_cost = float(input("Enter any miscellaneous costs: "))
+                if misc_cost >= 0 and misc_cost < 9999999:
+                    self.investment_total += misc_cost
+                else:
+                    print("\nPlease enter a valid amount.")
+                    continue
 
+                annual_flow = round(((self.cashflow_total * 12) / self.investment_total) * 100, 2)
 
+                print(f"\nYour Cash on Cash Return on Investment (RoI) is: %{annual_flow}\n")
+                break
+
+            except ValueError:
+                print("\nEnter a valid amount jackass!\n")
+                continue
 
 #Reset Values method
 
@@ -182,11 +204,12 @@ class CashOnCash:
                     self.expense_total = 0.0
                     self.cashflow_total = 0.0
                     self.cashoncash_roi = 0.0
+                    print("Values reset...")
                     break
                 else:
                     print("Please enter a valid selection.")
                     continue
-                
+
             except ValueError:
                 print("Enter only either y or n!")
 
@@ -194,7 +217,6 @@ class CashOnCash:
 #rental_roi method
 
     def rental_roi(self):
-
         print(logo)
         print("Welcome to the Rental Property Return on Investment (RoI) Calculator.")
         print("This calculator calculates RoI based on Income, Expenses, and Cash Flow.")
@@ -224,12 +246,12 @@ class CashOnCash:
                     elif menu_selection == 4:
                         self.roi_calc()
                     elif menu_selection == 5:
-                        print(f"\nIncome Total: {self.income_total}")
-                        print(f"Expenses Total: {self.expense_total}")
-                        print(f"Montly Cash Flow: {self.cashflow_total}\n")
+                        print(f"\nIncome Total: ${self.income_total}")
+                        print(f"Expenses Total: ${self.expense_total}")
+                        print(f"Montly Cash Flow: ${self.cashflow_total}")
+                        print(f"Investment Total: ${self.investment_total}\n")
                     elif menu_selection == 6:
                         self.reset_values()
-                        print("Values Reset...")
                     elif menu_selection == 7:
                         print("\nThank you for using the Rental Income Calculator.")
                         break
@@ -240,13 +262,11 @@ class CashOnCash:
                 print("\nInvalid input. Please enter a valid number jackass.\n")
 
 
-
 #main function
 
 def main():
     calc_roi = CashOnCash()
     calc_roi.rental_roi()
-
 
 
 if __name__ == "__main__":
