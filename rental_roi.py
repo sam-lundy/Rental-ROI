@@ -40,7 +40,7 @@ class CashOnCash:
                 else:
                     print("\nPlease enter a valid additional income amount.\n")
 
-                add_more_income = input("\nAdd more income? (type 'y' or 'n'): ")
+                add_more_income = input("\nAdd more income? (type 'y' or 'n'): ").lower()
                 if add_more_income == 'n':
                     income_rounded = round(self.income_total, 2)
                     print(f"\nIncome total: {income_rounded}\n")
@@ -61,7 +61,7 @@ class CashOnCash:
 
         while True:
             try:
-                begin_expenses = input("Begin expense calculation? 'y' or 'n': ")
+                begin_expenses = input("Begin expense calculation? 'y' or 'n': ").lower()
 
                 if begin_expenses == 'n':
                     break
@@ -165,13 +165,40 @@ class CashOnCash:
 
 
 
+#Reset Values method
+
+    def reset_values(self):
+
+        while True:
+            try:
+                user_check = input("Are you sure you want to delete all your saved values? type 'y' or 'n': ").lower()
+
+                if user_check == 'n':
+                    break
+                elif user_check == 'y':
+                    self.income_types = {}
+                    self.income_total = 0.0
+                    self.expense_types = {}
+                    self.expense_total = 0.0
+                    self.cashflow_total = 0.0
+                    self.cashoncash_roi = 0.0
+                    break
+                else:
+                    print("Please enter a valid selection.")
+                    continue
+                
+            except ValueError:
+                print("Enter only either y or n!")
+
 
 #rental_roi method
 
     def rental_roi(self):
+
         print(logo)
         print("Welcome to the Rental Property Return on Investment (RoI) Calculator.")
         print("This calculator calculates RoI based on Income, Expenses, and Cash Flow.")
+
         while True:
             menu_selection = input("""\nPlease choose from the following menus: \n
                 1. Income
@@ -197,11 +224,12 @@ class CashOnCash:
                     elif menu_selection == 4:
                         self.roi_calc()
                     elif menu_selection == 5:
-                        print(f"\nIncome Total: {self.income_total}\n")
-                        print(f"\nExpenses Total: {self.expense_total}\n")
-                        print(f"\nMontly Cash Flow: {self.cashflow_total}")
+                        print(f"\nIncome Total: {self.income_total}")
+                        print(f"Expenses Total: {self.expense_total}")
+                        print(f"Montly Cash Flow: {self.cashflow_total}\n")
                     elif menu_selection == 6:
-                        print("Reset values")
+                        self.reset_values()
+                        print("Values Reset...")
                     elif menu_selection == 7:
                         print("\nThank you for using the Rental Income Calculator.")
                         break
@@ -210,9 +238,6 @@ class CashOnCash:
 
             except ValueError:
                 print("\nInvalid input. Please enter a valid number jackass.\n")
-
-
-
 
 
 
