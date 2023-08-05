@@ -42,12 +42,14 @@ class CashOnCash:
 
                     # better way than 'if income >= 0 and income < 99999 imo'
                     if 0 <= get_income < 999999999:
-                        self.income_type_store.update({income_type: get_income})
+                        self.income_type_store.update(
+                            {income_type: get_income})
                         self.income_total += get_income
                         break
 
                     else:
-                        print(f"\nPlease enter a valid {income_type} income amount.\n")
+                        print(
+                            f"\nPlease enter a valid {income_type} income amount.\n")
                         continue
 
                 except ValueError:
@@ -90,12 +92,14 @@ class CashOnCash:
                     get_expense = float(get_expense)
 
                     if 0 <= get_expense < 999999:
-                        self.expense_type_store.update({expense_type: get_expense})
+                        self.expense_type_store.update(
+                            {expense_type: get_expense})
                         self.expense_total += get_expense
                         break
 
                     else:
-                        print(f"\nPlease enter a valid {expense_type} income amount.\n")
+                        print(
+                            f"\nPlease enter a valid {expense_type} income amount.\n")
                         continue
 
                 except ValueError:
@@ -117,7 +121,8 @@ class CashOnCash:
 
             while True:
                 try:
-                    get_roi_amount = input(f"\nEnter your {roi_type.lower()}: ")
+                    get_roi_amount = input(
+                        f"\nEnter your {roi_type.lower()}: ")
 
                     if get_roi_amount.lower() == "q":
                         should_quit = True
@@ -127,7 +132,8 @@ class CashOnCash:
 
                     if 0 <= get_roi_amount < 9999999:
                         self.investment_total += get_roi_amount
-                        self.investment_store.update({roi_type: get_roi_amount})
+                        self.investment_store.update(
+                            {roi_type: get_roi_amount})
                         break
 
                     else:
@@ -248,7 +254,8 @@ class CashOnCash:
                             (self.income_total - self.expense_total), 2
                         )
                         self.cashflow_total += cash_flow_result
-                        print(f"\nYour monthly cash flow is ${cash_flow_result}")
+                        print(
+                            f"\nYour monthly cash flow is ${cash_flow_result}")
 
                     elif menu_selection == 4:
                         self.roi_calc()
