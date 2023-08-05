@@ -188,7 +188,6 @@ class CashOnCash:
                 continue
 
 
-
     def reset_values(self):
         '''
         reset_values provides functionality in order to reset the class attribute values to zero.
@@ -214,7 +213,6 @@ class CashOnCash:
 
             except ValueError:
                 print("Enter only either y or n!")
-
 
 
 
@@ -265,7 +263,6 @@ class CashOnCash:
 
             except ValueError:
                 print("\nInvalid input. Please enter a valid number jackass.\n")
-
 
 
 def main():
