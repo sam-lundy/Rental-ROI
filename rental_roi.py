@@ -51,6 +51,7 @@ class CashOnCash:
                     print("\nEnter a number or 'q' to quit.\n")
                     continue
 
+
     def expenses(self):
         '''
         expenses() provides a lengthy conditional check for users to 
@@ -137,6 +138,7 @@ class CashOnCash:
         '''
         display_values prints the currently stored dictionary values in the class constructor.
         '''
+        #empty dictionaries eval to False in python
         print("\n")
         if self.income_type_store:
             print("Income: \n")
@@ -238,9 +240,7 @@ class CashOnCash:
 
                     elif menu_selection == 6:
                         self.display_values()
-                        #empty dictionaries eval to False in python
                         
-
                     elif menu_selection == 7:
                         self.reset_values()
 
