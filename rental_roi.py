@@ -2,9 +2,9 @@ from rental_art import logo
 
 class CashOnCash:
     def __init__(self):
-        self.income_types = {}
+        self.income_type_store = {}
         self.income_total = 0.0
-        self.expense_types = {}
+        self.expense_type_store = {}
         self.expense_total = 0.0
         self.cashflow_total = 0.0
         self.investment_total = 0.0
@@ -15,40 +15,39 @@ class CashOnCash:
         income() is a method that asks about the rental and 
         other income received from the property.
         '''
-        while True:
-            try:
-                #Rental income
-                rent_income = float(input("\nEnter the rental income amount or enter '000' to stop: "))
-                if rent_income >= 0 and rent_income < 999999999:
-                    self.income_types.update({"Rent": rent_income})
-                    self.income_total += rent_income
-                elif rent_income == 000:
-                    break
-                else:
-                    print("\nPlease enter a valid rental income amount.\n")
+        income_types = ["Rent", "Laundry", "Storage", "Misc"]
+        should_quit = False
+        print("Enter 'q' at any time to quit adding income.")
+
+        for income_type in income_types:
+            if should_quit:
+                break
+
+            while True:
+                try:
+                    #Rental income
+                    get_income = input(f"\nEnter the {income_type.lower()} income amount: ")
+
+                    if get_income.lower() == 'q':
+                        should_quit = True
+                        break
+                    
+                    #Convert to float and check for valid amounts, add to dictionary and total
+                    get_income = float(get_income)
+
+                    #better way than 'if income >= 0 and income < 99999 imo'
+                    if 0 <= get_income < 999999999:
+                        self.income_type_store.update({income_type: get_income})
+                        self.income_total += get_income
+                        break
+
+                    else:
+                        print(f"\nPlease enter a valid {income_type} income amount.\n")
+                        continue
+
+                except ValueError:
+                    print("\nEnter a number or 'q' to quit.\n")
                     continue
-
-                #Additional Income
-                other_income = float(input("\nEnter any other additional income. (Laundry, Storage, etc) or enter '000' to stop: "))
-                if other_income >= 0 and other_income < 999999999:
-                    self.income_types.update({"Other": other_income})
-                    self.income_total += other_income
-                elif other_income == 000:
-                    break
-                else:
-                    print("\nPlease enter a valid additional income amount.\n")
-
-                add_more_income = input("\nAdd more income? (type 'y' or 'n'): ").lower()
-                if add_more_income == 'n':
-                    income_rounded = round(self.income_total, 2)
-                    print(f"\nIncome total: ${income_rounded}\n")
-                    break
-                else:
-                    continue
-
-            except ValueError:
-                print("\nEnter a number!\n")
-
 
     def expenses(self):
         '''
@@ -63,10 +62,13 @@ class CashOnCash:
                     break
 
                 elif begin_expenses == 'y':
+                    print("Please enter '000' at any time to cancel adding expenses.\n")
                     tax_exp = float(input("Enter property tax: "))
                     if tax_exp >= 0 and tax_exp < 99999:
                         self.expense_types.update({"Taxes": tax_exp})
                         self.expense_total += tax_exp
+                    elif tax_exp == 000:
+                        break
                     else:
                         print("\nPlease enter a valid tax amount.\n")
                     
@@ -74,6 +76,8 @@ class CashOnCash:
                     if ins_exp >= 0 and ins_exp < 99999:
                         self.expense_types.update({"Insurance": ins_exp})
                         self.expense_total += ins_exp
+                    elif ins_exp == 000:
+                        break
                     else:
                         print("\nPlease enter a valid insurance amount.\n")
                     
