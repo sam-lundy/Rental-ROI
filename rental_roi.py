@@ -1,6 +1,7 @@
 from rental_art import logo
 import os
 
+
 class CashOnCash:
     def __init__(self):
         self.income_type_store = {}
@@ -12,12 +13,11 @@ class CashOnCash:
         self.investment_total = 0.0
         self.annual_roi_percent = 0.0
 
-
     def income(self):
-        '''
-        income() is a method that asks about the rental and 
+        """
+        income() is a method that asks about the rental and
         other income received from the property.
-        '''
+        """
         income_types = ["Rent", "Laundry", "Storage", "Misc"]
         should_quit = False
         print("Enter 'q' at any time to quit adding income.")
@@ -28,17 +28,19 @@ class CashOnCash:
 
             while True:
                 try:
-                    #Rental income
-                    get_income = input(f"\nEnter the {income_type.lower()} income amount: ")
+                    # Rental income
+                    get_income = input(
+                        f"\nEnter the {income_type.lower()} income amount: "
+                    )
 
-                    if get_income.lower() == 'q':
+                    if get_income.lower() == "q":
                         should_quit = True
                         break
-                    
-                    #Convert to float and check for valid amounts, add to dictionary and total
+
+                    # Convert to float and check for valid amounts, add to dictionary and total
                     get_income = float(get_income)
 
-                    #better way than 'if income >= 0 and income < 99999 imo'
+                    # better way than 'if income >= 0 and income < 99999 imo'
                     if 0 <= get_income < 999999999:
                         self.income_type_store.update({income_type: get_income})
                         self.income_total += get_income
@@ -52,18 +54,27 @@ class CashOnCash:
                     print("\nEnter a number or 'q' to quit.\n")
                     continue
 
-
     def expenses(self):
-        '''
-        expenses() provides a lengthy conditional check for users to 
+        """
+        expenses() provides a lengthy conditional check for users to
         input their monthly expenses in several different categories.
-        '''
-        expense_types = ["Tax", "Insurance", "Utilities", "HOA", "Groundskeeping", "Vacancy", 
-                         "Repairs", "Capital Expenditure", "Property Management", "Morgage"]
+        """
+        expense_types = [
+            "Tax",
+            "Insurance",
+            "Utilities",
+            "HOA",
+            "Groundskeeping",
+            "Vacancy",
+            "Repairs",
+            "Capital Expenditure",
+            "Property Management",
+            "Morgage",
+        ]
         should_quit = False
         print("Enter 'q' at any time to quit adding expenses.")
 
-        #for loops through list of expense types to reduce if statement clutter
+        # for loops through list of expense types to reduce if statement clutter
         for expense_type in expense_types:
             if should_quit:
                 break
@@ -72,7 +83,7 @@ class CashOnCash:
                 try:
                     get_expense = input(f"\nEnter {expense_type} amount: ")
 
-                    if get_expense.lower() == 'q':
+                    if get_expense.lower() == "q":
                         should_quit = True
                         break
 
@@ -91,12 +102,11 @@ class CashOnCash:
                     print("\nPlease enter a valid value!\n")
                     continue
 
-
     def roi_calc(self):
-        '''
-        roi_calc() provides an input/calculation structure to determine the 
+        """
+        roi_calc() provides an input/calculation structure to determine the
         Return on Investment for the above values.
-        '''
+        """
         roi_types = ["Down Payment", "Closing Costs", "Rehab Budget", "Misc"]
         should_quit = False
         print("Enter 'q' at any time to quit ROI.")
@@ -109,7 +119,7 @@ class CashOnCash:
                 try:
                     get_roi_amount = input(f"\nEnter your {roi_type.lower()}: ")
 
-                    if get_roi_amount.lower() == 'q':
+                    if get_roi_amount.lower() == "q":
                         should_quit = True
                         break
 
@@ -129,17 +139,20 @@ class CashOnCash:
                     continue
 
         if self.investment_total > 0:
-            #takes cash flow for the year, divides it by total investment, times 100 to get real percent, rounded to 2 decimals
-            self.annual_roi_percent = round(((self.cashflow_total * 12) / self.investment_total) * 100, 2)
+            # takes cash flow for the year, divides it by total investment, times 100 to get real percent, rounded to 2 decimals
+            self.annual_roi_percent = round(
+                ((self.cashflow_total * 12) / self.investment_total) * 100, 2
+            )
 
-            print(f"\nYour Cash on Cash Return on Investment (RoI) is: %{self.annual_roi_percent}\n")
-
+            print(
+                f"\nYour Cash on Cash Return on Investment (RoI) is: %{self.annual_roi_percent}\n"
+            )
 
     def display_values(self):
-        '''
+        """
         display_values prints the currently stored dictionary values in the class constructor.
-        '''
-        #empty dictionaries eval to False in python
+        """
+        # empty dictionaries eval to False in python
         print("\n")
         if self.income_type_store:
             print("Income: \n")
@@ -147,7 +160,7 @@ class CashOnCash:
                 print(f"{k}: {v}")
         else:
             print("\nNo income data saved.")
-        
+
         if self.expense_type_store:
             print("\nExpenses: \n")
             for k, v in self.expense_type_store.items():
@@ -162,18 +175,19 @@ class CashOnCash:
         else:
             print("\nNo investment data saved.")
 
-
     def reset_values(self):
-        '''
+        """
         reset_values provides functionality in order to reset the class attribute values to zero.
-        '''
+        """
         while True:
             try:
-                user_check = input("Are you sure you want to delete all your saved values? type 'y' or 'n': ").lower()
+                user_check = input(
+                    "Are you sure you want to delete all your saved values? type 'y' or 'n': "
+                ).lower()
 
-                if user_check == 'n':
+                if user_check == "n":
                     break
-                elif user_check == 'y':
+                elif user_check == "y":
                     self.income_type_store = {}
                     self.income_total = 0.0
                     self.expense_type_store = {}
@@ -194,19 +208,21 @@ class CashOnCash:
             except ValueError:
                 print("Enter only either y or n!")
 
-
     def rental_roi(self):
-        '''
-        rental_roi() is the main runner function of the program. Provides menu and 
+        """
+        rental_roi() is the main runner function of the program. Provides menu and
         calls the methods for each selection provided.
-        '''
+        """
 
         print(logo)
         print("Welcome to the Rental Property Return on Investment (RoI) Calculator.")
-        print("This calculator calculates RoI based on Income, Expenses, and Cash Flow.")
+        print(
+            "This calculator calculates RoI based on Income, Expenses, and Cash Flow."
+        )
 
         while True:
-            menu_selection = input("""\nPlease choose from the following menus: \n
+            menu_selection = input(
+                """\nPlease choose from the following menus: \n
 1. Income
 2. Expenses
 3. View Cash Flow
@@ -214,13 +230,13 @@ class CashOnCash:
 5. Print Values
 6. View All Saved Income/Expenses/Investments
 7. Reset Values
-8. Quit \n""")
-            
+8. Quit \n"""
+            )
+
             try:
                 menu_selection = int(menu_selection)
 
                 if 1 <= menu_selection <= 8:
-
                     if menu_selection == 1:
                         self.income()
 
@@ -228,7 +244,9 @@ class CashOnCash:
                         self.expenses()
 
                     elif menu_selection == 3:
-                        cash_flow_result = round((self.income_total - self.expense_total), 2)
+                        cash_flow_result = round(
+                            (self.income_total - self.expense_total), 2
+                        )
                         self.cashflow_total += cash_flow_result
                         print(f"\nYour monthly cash flow is ${cash_flow_result}")
 
@@ -243,7 +261,7 @@ class CashOnCash:
 
                     elif menu_selection == 6:
                         self.display_values()
-                        
+
                     elif menu_selection == 7:
                         self.reset_values()
 
@@ -259,9 +277,9 @@ class CashOnCash:
 
 
 def main():
-    '''
+    """
     The main() function instantiates the object of class CashOnCash() and returns the method of rental_roi
-    '''
+    """
     calc_roi = CashOnCash()
     calc_roi.rental_roi()
 
