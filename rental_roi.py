@@ -11,9 +11,11 @@ class CashOnCash:
 
 
 
-#step 1: Income method
-
     def income(self):
+        '''
+        income() is a method that asks about the rental and 
+        other income received from the property.
+        '''
 
         while True:
             try:
@@ -51,12 +53,11 @@ class CashOnCash:
                 print("\nEnter a number!\n")
 
 
-#step 2: Expenses method
-
     def expenses(self):
-        # debug
-        # print(self.expense_types)
-        # print(self.expense_total)
+        '''
+        expenses() provides a lengthy conditional check for users to 
+        input their monthly expenses in several different categories.
+        '''
 
         while True:
             try:
@@ -147,9 +148,12 @@ class CashOnCash:
                 print("\nPlease enter a valid value!\n")
             
 
-#step 3: Cash flow method
 
     def cash_flow(self):
+        '''
+        cash_flow() is a simple method to calculate the monthly cash flow of the 
+        rental.
+        '''
         cash_flow_result = round((self.income_total - self.expense_total), 2)
         self.cashflow_total += cash_flow_result
 
@@ -157,9 +161,12 @@ class CashOnCash:
 
 
 
-#step 4: Cash on Cash ROI
 
     def roi_calc(self):
+        '''
+        roi_calc() provides an input/calculation structure to determine the 
+        Return on Investment for the above values.
+        '''
         while True:
             try:
                 down_pmt = float(input("Enter your down payment: "))
@@ -187,9 +194,12 @@ class CashOnCash:
                 print("\nEnter a valid amount jackass!\n")
                 continue
 
-#Reset Values method
+
 
     def reset_values(self):
+        '''
+        reset_values provides functionality in order to reset the class attribute values to zero.
+        '''
 
         while True:
             try:
@@ -214,9 +224,14 @@ class CashOnCash:
                 print("Enter only either y or n!")
 
 
-#rental_roi method
+
 
     def rental_roi(self):
+        '''
+        rental_roi() is the main runner function of the program. Provides menu and 
+        calls the methods for each selection provided.
+        '''
+
         print(logo)
         print("Welcome to the Rental Property Return on Investment (RoI) Calculator.")
         print("This calculator calculates RoI based on Income, Expenses, and Cash Flow.")
@@ -262,9 +277,12 @@ class CashOnCash:
                 print("\nInvalid input. Please enter a valid number jackass.\n")
 
 
-#main function
+
 
 def main():
+    '''
+    The main() function instantiates the object of class CashOnCash() and returns the method of rental_roi
+    '''
     calc_roi = CashOnCash()
     calc_roi.rental_roi()
 
