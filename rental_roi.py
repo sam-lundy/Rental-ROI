@@ -74,7 +74,7 @@ class CashOnCash:
                     get_expense = float(get_expense)
 
                     if 0 <= get_expense < 999999:
-                        self.expense_type_store.update({"Taxes": get_expense})
+                        self.expense_type_store.update({expense_type: get_expense})
                         self.expense_total += get_expense
                         break
 
